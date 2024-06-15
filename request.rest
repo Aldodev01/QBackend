@@ -1,0 +1,50 @@
+### Create a new user
+POST http://localhost:4000/api/users
+Content-Type: application/json
+
+{
+  "username": "johndoe",
+  "email": "johndoe@example.com",
+  "password": "password123",
+  "phone": "1234567890",
+  "employee_no": "EMP001",
+  "profile_pic": "http://example.com/johndoe.jpg",
+  "status": "user"
+}
+
+### Get all users (requires authentication)
+GET http://localhost:4000/api/users
+
+### Get a user by ID (requires authentication)
+GET http://localhost:4000/api/users/1
+Authorization: Bearer
+
+### Update a user by ID (requires authentication)
+PUT http://localhost:4000/api/users/1
+Content-Type: application/json
+Authorization: Bearer
+
+{
+  "username": "johnupdated",
+  "email": "johnupdated@example.com",
+  "phone": "0987654321",
+  "profile_pic": "http://example.com/johnupdated.jpg",
+  "status": "user"
+}
+
+### Delete a user by ID (requires authentication)
+DELETE http://localhost:4000/api/users/1
+Authorization: Bearer
+
+### Login
+POST http://localhost:4000/api/login
+Content-Type: application/json
+
+{
+  "email": "aldodevv@gmail.com",
+  "password": "1qazxsw2"
+}
+
+### Logout (requires authentication)
+POST http://localhost:4000/api/logout
+Authorization: Bearer
