@@ -78,7 +78,16 @@ const userController = {
         data: { username, email, phone, status }
       });
       res.json(user);
-      res.status(200).json({code: 200, message: `Successfully to update the account ${username}`});
+      
+      if(!username || !email || !phone || !status) {
+        res.status(400).json({code: 400, data: user, message: `Please update the account all of the fields`});
+      } else {
+        if(user) {
+          res.status(200).json({code: 200, user: user, message: `Successfully to update the account ${username}`});
+        } else {
+          res.status(404).json({code: 404, message: `User not Found`});
+        }
+      }
     } catch (error) {
       res.status(500).json({ code: 500, error: error.message, message: `Failed to Update User ${username}`});
       next(error)

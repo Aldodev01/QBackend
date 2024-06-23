@@ -91,16 +91,36 @@ const PresentController = {
   async getUserAbsences(req, res, next) {
     const userId = req.body.userId;
     try {
-      const absences = await prisma.absence.findMany({
-        where: { user: { id: userId } },
-        orderBy: { date: 'desc' }
-      });
+        const absences = await prisma.absence.findMany({
+            where: { user_id: userId },
+            orderBy: { date: 'desc' },
+            include: {
+                user: true // Sertakan semua informasi dari model User
+            }
+        });
 
-      res.json(absences);
+        // Format data untuk menggabungkan absensi dengan informasi pengguna
+        const formattedAbsences = absences.map(absence => ({
+            ...absence,
+            user: {
+                id: absence.user.id,
+                username: absence.user.username,
+                email: absence.user.email,
+                phone: absence.user.phone,
+                employee_no: absence.user.employee_no,
+                profile_pic: absence.user.profile_pic,
+                status: absence.user.status,
+                join_date: absence.user.join_date,
+                contract_end: absence.user.contract_end
+            }
+        }));
+
+        res.json(formattedAbsences);
     } catch (error) {
-      next(error);
+        next(error);
     }
-  }
+}
+
 }
 
 export default PresentController;

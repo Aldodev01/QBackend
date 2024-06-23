@@ -14,6 +14,9 @@
   "keywords": [
     "Qontrol"
   ],
+  "engines": {
+    "node": ">=18"
+  },
   "author": "aldodevv",
   "license": "MIT",
   "bugs": {
