@@ -8,8 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
     "postinstall": "npx prisma generate && prisma migrate deploy && npx prisma db push",
-    "build": "npx prisma generate && prisma migrate deploy",
-    "vercel-build": "npx prisma generate && node index.js"
+    "build": "npx prisma generate && next build"
   },
   "repository": {
     "type": "git",
@@ -39,6 +38,6 @@
     "multer": "^1.4.5-lts.1"
   },
   "devDependencies": {
-    "prisma": "^5.14.0"
+    "prisma": "^5.15.1"
   }
 }
