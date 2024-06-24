@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
     "postinstall": "npx prisma generate && prisma migrate deploy && npx prisma db push",
-    "build": "npx prisma generate && next build"
+    "build": "npx prisma generate && nodemon index.js"
   },
   "repository": {
     "type": "git",
