@@ -7,7 +7,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
-    "postinstall": "prisma generate && prisma migrate deploy && npx prisma db push"
+    "postinstall": "prisma generate && prisma migrate deploy && npx prisma db push",
+    "build": "prisma generate && prisma migrate deploy",
+    "vercel-build": "prisma generate && node index.js"
   },
   "repository": {
     "type": "git",
