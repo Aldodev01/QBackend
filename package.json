@@ -5,7 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "postinstall": "prisma generate && prisma migrate deploy",
+    "build": "npx prisma db push && npx prisma generate && next build"
   },
   "repository": {
     "type": "git",
@@ -14,6 +17,9 @@
   "keywords": [
     "Qontrol"
   ],
+  "engines": {
+    "node": ">=18"
+  },
   "author": "aldodevv",
   "license": "MIT",
   "bugs": {
