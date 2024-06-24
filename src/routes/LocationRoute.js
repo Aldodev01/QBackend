@@ -1,5 +1,5 @@
 import express from 'express';
-import AuthMiddleware from '../middlewares/authMiddleware.js';
+import AuthMiddleware from '../middlewares/AuthMiddleware.js';
 import locationController from '../controllers/LocationController.js';
 
 

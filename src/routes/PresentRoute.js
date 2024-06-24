@@ -1,5 +1,5 @@
 import express from 'express';
-import authMiddleware from '../middlewares/authMiddleware.js';
+import authMiddleware from '../middlewares/AuthMiddleware.js';
 import { checkWorkingHours } from '../middlewares/PresentMiddleware.js';
 import PresentController from '../controllers/PresentController.js';
 
