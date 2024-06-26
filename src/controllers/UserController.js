@@ -5,12 +5,13 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 import cloudinary from '../middlewares/CloudinaryConfig.js';
 dotenv.config();
-
-const JWT_SECRET = process.env.JWT_SECRET;
-
 const userController = {
     createUser: async (req, res, next) => {
     const { username, email, password, phone, employee_no, profile_pic, status } = req.body;
+    if(!username || !email || !password || !phone || !employee_no || !profile_pic || !status) {
+      res.status(400).json({code: 400, message: `Please update the account all of the fields`});
+      return next()
+    }
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = await prisma.user.create({
@@ -28,92 +29,120 @@ const userController = {
       });
       if(user) {
         res.status(201).json({code: 201, data: user, message: `Successfully to create account ${username}`});
+        return next()
       } else {
         res.status(400).json({code: 400, data: user, message: `Somethings happened try again laterd`});
+        return next()
       }
     } catch (error) {
       res.status(500).json({ code: 500, error: error.message, message: `Failed to create account ${username}`});
-      next(error)
+      return next(error)
     }
   },
   
- getAllUsers: async (req, res, next) => {
+ getAllUsers: async (_, res, next) => {
     try {
       const users = await prisma.user.findMany();
       res.json(users);
       if(users?.length > 0) {
         res.status(200).json({code: 200, data: users, message: `Successfully to get all of account`});
+        return next()
       } else if (users?.length === 0) {
         res.status(200).json({code: 404, data: users, message: `Successfully to get all of account but no one account to find`});
+        return next()
       } else {
-        res.status(400).json({code: 400, data: users, message: `Somethings happened try again laterd`});
+        res.status(400).json({code: 400, data: users, message: `Somethings happened try again later`});
+        return next()
       }
     } catch (error) {
       res.status(500).json({ code: 500, error: error.message, message: `Failed to get account`});
-      next(error)
+      return next(error)
     }
   },
   
  getUserById: async (req, res, next) => {
     const { id } = req.params;
+    if (!id) {
+      res.status(404).json({code: 404, message: `Please Input the account id`});
+      return next()
+    }
     try {
       const user = await prisma.user.findUnique({ where: { id } });
       if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-      } else {
+        res.status(404).json({ error: 'User not found' });
+        return next()
+      } else if (user) {
         res.status(200).json({code: 200, data: user, message: `Successfully to get the account ${user.username}`});
+        return next()
+      } else {
+        res.status(400).json({code: 400, data: user, message: `Somethings happened try again later`});
+        return next()
       }
     } catch (error) {
       res.status(500).json({ code: 500, error: error.message, message: `Failed to get account ${id}`});
-      next(error)
+      return next(error)
     }
   },
   
  updateUser: async (req, res, next) => {
     const { id } = req.params;
     const { username, email, phone, status } = req.body;
+    if (!id) {
+      res.status(404).json({code: 404, message: `Please Input the account id`});
+      return next()
+    }
+    if(!username || !email || !phone || !status) {
+      res.status(400).json({code: 400, message: `Please update the account all of the fields ${username}, ${email}, ${phone}, ${status} is Missing`});
+      return next()
+    }
     try {
       const user = await prisma.user.update({
         where: { id },
         data: { username, email, phone, status }
       });
-      res.json(user);
-      
-      if(!username || !email || !phone || !status) {
-        res.status(400).json({code: 400, data: user, message: `Please update the account all of the fields`});
+      if(user) {
+        res.status(200).json({code: 200, user: user, message: `Successfully to update the account ${username}`});
       } else {
-        if(user) {
-          res.status(200).json({code: 200, user: user, message: `Successfully to update the account ${username}`});
-        } else {
-          res.status(404).json({code: 404, message: `User not Found`});
-        }
+        res.status(404).json({code: 404, message: `User not Found`});
+        return next()
       }
     } catch (error) {
       res.status(500).json({ code: 500, error: error.message, message: `Failed to Update User ${username}`});
-      next(error)
+      return next(error)
     }
   },
   
  deleteUser: async (req, res, next) => {
     const { id } = req.params;
+    if (!id) {
+      res.status(404).json({code: 404, message: `Please Input the account id`});
+      return next()
+    }
     try {
       await prisma.user.delete({ where: { id } });
       res.status(200).json({code: 200, message: `Successfully to delete the account ${id}`});
+      return next()
     } catch (error) {
       res.status(500).json({ code: 500, error: error.message, message: `Failed to Delete User ${id}`});
-      next(error)
+      return next(error)
     }
   },
 
   updateProfilePic: async (req, res, next) => {
     const { id } = req.params;
+    if (!id) {
+      res.status(404).json({code: 404, message: `Please Input the account id`});
+      return next()
+    }
     if (!req.file) {
-      return res.status(400).json({ error: 'No file uploaded' })
+      res.status(400).json({ error: 'No file uploaded' })
+      return next()
     }
     try {
       cloudinary.uploader.upload_stream({ folder: 'profile_pics' }, async (error, result) => {
         if (error) {
-          return res.status(500).json({ error: 'Failed to upload image' });
+          res.status(500).json({ error: 'Failed to upload image' });
+          return next()
         }
         const user = await prisma.user.update({
           where: { id },
@@ -123,37 +152,107 @@ const userController = {
       }).end(req.file.buffer);
     } catch (error) {
       res.status(500).json({ error: error.message });
-      next(error);
+      return next(error);
     }
   },
 
   login: async (req, res, next) => {
     try {
-      const { email, password } = await req.body;
+      const { email, password } = req.body;
+      if (!email) {
+        res.status(400).json({ error: 'Please Input the email' });
+        return next();
+      } else if (!password) {
+        res.status(400).json({ error: 'Please Input the password' });
+        return next();
+      }
+      
       const user = await prisma.user.findUnique({
         where: { email },
       });
-      const isPasswordValid = await bcrypt.compare(password, user.password);
       if (!user) {
-        return res.status(401).json({ error: 'Invalid email' });
-      } else if (!isPasswordValid) {
-        return res.status(401).json({ error: 'Invalid password' });
+        res.status(404).json({ error: 'User not found' });
+        return next();
+      }
+      await prisma.user.update({
+        where: { email: email },
+        data: { login: true }
+      });
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+      if (!isPasswordValid) {
+        res.status(401).json({ error: 'Invalid password' });
+        return next();
       }
       const token = jwt.sign(
-        user,
+        { id: user.id, email: user.email, login: true },
         process.env.JWT_SECRET,
         { expiresIn: '1d' }
       );
-      res.json({ token, code: 200, user: user });
+      await res.json({ token, code: 200, user: user, message: 'Login successful' });   
+  
     } catch (error) {
-      res.status(500).json({ error: error.message, code: 500});
-      next(error)
+      res.status(500).json({ error: error.message, code: 500 });
+      return next(error);
+    }
+  },
+  
+  getUserCounts: async (_, res, next) => {
+    try {
+      const userLoginCount = await prisma.user.count({
+        where: { status: 'user', login: true }
+      });
+      const userUnloggedCount = await prisma.user.count({
+        where: { status: 'user', login: false }
+      });
+      const signerLoginCount = await prisma.user.count({
+        where: { status: 'signer', login: true }
+      });
+      const signerUnloggedCount = await prisma.user.count({
+        where: { status: 'signer', login: false }
+      });
+
+        res.status(200).json({
+          code: 200,
+          data: {
+            userLoginCount,
+            userUnloggedCount,
+            signerLoginCount,
+            signerUnloggedCount
+          },
+          message: 'Successfully retrieved user counts'
+        });
+        return next();
+    } catch (error) {
+      res.status(500).json({ code: 500, error: error.message, message: 'Failed to retrieve user counts' });
+      return next(error);
     }
   },
 
-  logout: (req, res, next) => {
-    res.json({ message: 'Logout successful' });
-  },
+  logout: async (req, res, next) => {
+    const { id } = req.params; // Mengambil userId dari req.params
+  
+    if (!id) {
+      res.status(400).json({ error: 'User ID is required' });
+      return next();
+    }
+    try {
+      // Update status login pengguna di database
+      await prisma.user.update({
+        where: { id: id },
+        data: { login: false }
+      });
+      const user = await prisma.user.findUnique({
+        where: { id: id },
+      });
+  
+      // Mengirim respons logout sukses
+      await res.status(200).json({ message: 'Logout successful', code: 200, data: user });
+      return next();
+    } catch (error) {
+      res.status(500).json({ error: error.message, code: 500 });
+      return next(error);
+    }
+  }
 };
 
 export default userController;

@@ -17,11 +17,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.14.0
- * Query Engine version: e9771e62de70f79a5e1c604a2d7c8e2a0a874b48
+ * Query Engine version: 5675a3182f972f1a8f31d16eee6abf4fd54910e3
  */
 Prisma.prismaVersion = {
   client: "5.14.0",
-  engine: "e9771e62de70f79a5e1c604a2d7c8e2a0a874b48"
+  engine: "5675a3182f972f1a8f31d16eee6abf4fd54910e3"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -129,7 +129,8 @@ exports.Prisma.UserScalarFieldEnum = {
   profile_pic: 'profile_pic',
   status: 'status',
   join_date: 'join_date',
-  contract_end: 'contract_end'
+  contract_end: 'contract_end',
+  login: 'login'
 };
 
 exports.Prisma.AbsenceScalarFieldEnum = {

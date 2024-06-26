@@ -238,7 +238,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 5.14.0
-   * Query Engine version: e9771e62de70f79a5e1c604a2d7c8e2a0a874b48
+   * Query Engine version: 5675a3182f972f1a8f31d16eee6abf4fd54910e3
    */
   export type PrismaVersion = {
     client: string
@@ -1101,6 +1101,7 @@ export namespace Prisma {
     status: string | null
     join_date: Date | null
     contract_end: Date | null
+    login: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1114,6 +1115,7 @@ export namespace Prisma {
     status: string | null
     join_date: Date | null
     contract_end: Date | null
+    login: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1127,6 +1129,7 @@ export namespace Prisma {
     status: number
     join_date: number
     contract_end: number
+    login: number
     _all: number
   }
 
@@ -1142,6 +1145,7 @@ export namespace Prisma {
     status?: true
     join_date?: true
     contract_end?: true
+    login?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1155,6 +1159,7 @@ export namespace Prisma {
     status?: true
     join_date?: true
     contract_end?: true
+    login?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1168,6 +1173,7 @@ export namespace Prisma {
     status?: true
     join_date?: true
     contract_end?: true
+    login?: true
     _all?: true
   }
 
@@ -1254,6 +1260,7 @@ export namespace Prisma {
     status: string
     join_date: Date
     contract_end: Date
+    login: boolean
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1284,6 +1291,7 @@ export namespace Prisma {
     status?: boolean
     join_date?: boolean
     contract_end?: boolean
+    login?: boolean
     Absence?: boolean | User$AbsenceArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -1299,6 +1307,7 @@ export namespace Prisma {
     status?: boolean
     join_date?: boolean
     contract_end?: boolean
+    login?: boolean
   }
 
 
@@ -1324,6 +1333,7 @@ export namespace Prisma {
       status: string
       join_date: Date
       contract_end: Date
+      login: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1755,6 +1765,7 @@ export namespace Prisma {
     readonly status: FieldRef<"User", 'String'>
     readonly join_date: FieldRef<"User", 'DateTime'>
     readonly contract_end: FieldRef<"User", 'DateTime'>
+    readonly login: FieldRef<"User", 'Boolean'>
   }
     
 
@@ -4046,7 +4057,8 @@ export namespace Prisma {
     profile_pic: 'profile_pic',
     status: 'status',
     join_date: 'join_date',
-    contract_end: 'contract_end'
+    contract_end: 'contract_end',
+    login: 'login'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -4135,6 +4147,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -4179,6 +4198,7 @@ export namespace Prisma {
     status?: StringFilter<"User"> | string
     join_date?: DateTimeFilter<"User"> | Date | string
     contract_end?: DateTimeFilter<"User"> | Date | string
+    login?: BoolFilter<"User"> | boolean
     Absence?: AbsenceListRelationFilter
   }
 
@@ -4193,6 +4213,7 @@ export namespace Prisma {
     status?: SortOrder
     join_date?: SortOrder
     contract_end?: SortOrder
+    login?: SortOrder
     Absence?: AbsenceOrderByRelationAggregateInput
   }
 
@@ -4210,6 +4231,7 @@ export namespace Prisma {
     status?: StringFilter<"User"> | string
     join_date?: DateTimeFilter<"User"> | Date | string
     contract_end?: DateTimeFilter<"User"> | Date | string
+    login?: BoolFilter<"User"> | boolean
     Absence?: AbsenceListRelationFilter
   }, "id" | "email" | "employee_no">
 
@@ -4224,6 +4246,7 @@ export namespace Prisma {
     status?: SortOrder
     join_date?: SortOrder
     contract_end?: SortOrder
+    login?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -4243,6 +4266,7 @@ export namespace Prisma {
     status?: StringWithAggregatesFilter<"User"> | string
     join_date?: DateTimeWithAggregatesFilter<"User"> | Date | string
     contract_end?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    login?: BoolWithAggregatesFilter<"User"> | boolean
   }
 
   export type AbsenceWhereInput = {
@@ -4380,6 +4404,7 @@ export namespace Prisma {
     status: string
     join_date?: Date | string
     contract_end: Date | string
+    login?: boolean
     Absence?: AbsenceCreateNestedManyWithoutUserInput
   }
 
@@ -4394,6 +4419,7 @@ export namespace Prisma {
     status: string
     join_date?: Date | string
     contract_end: Date | string
+    login?: boolean
     Absence?: AbsenceUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -4408,6 +4434,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     contract_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    login?: BoolFieldUpdateOperationsInput | boolean
     Absence?: AbsenceUpdateManyWithoutUserNestedInput
   }
 
@@ -4422,6 +4449,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     contract_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    login?: BoolFieldUpdateOperationsInput | boolean
     Absence?: AbsenceUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -4436,6 +4464,7 @@ export namespace Prisma {
     status: string
     join_date?: Date | string
     contract_end: Date | string
+    login?: boolean
   }
 
   export type UserUpdateManyMutationInput = {
@@ -4449,6 +4478,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     contract_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    login?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -4462,6 +4492,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     contract_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    login?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AbsenceCreateInput = {
@@ -4637,6 +4668,11 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type AbsenceListRelationFilter = {
     every?: AbsenceWhereInput
     some?: AbsenceWhereInput
@@ -4663,6 +4699,7 @@ export namespace Prisma {
     status?: SortOrder
     join_date?: SortOrder
     contract_end?: SortOrder
+    login?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -4676,6 +4713,7 @@ export namespace Prisma {
     status?: SortOrder
     join_date?: SortOrder
     contract_end?: SortOrder
+    login?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -4689,6 +4727,7 @@ export namespace Prisma {
     status?: SortOrder
     join_date?: SortOrder
     contract_end?: SortOrder
+    login?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -4739,6 +4778,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -4889,6 +4936,10 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type AbsenceUpdateManyWithoutUserNestedInput = {
     create?: XOR<AbsenceCreateWithoutUserInput, AbsenceUncheckedCreateWithoutUserInput> | AbsenceCreateWithoutUserInput[] | AbsenceUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AbsenceCreateOrConnectWithoutUserInput | AbsenceCreateOrConnectWithoutUserInput[]
@@ -4982,6 +5033,11 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -5050,6 +5106,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -5175,6 +5239,7 @@ export namespace Prisma {
     status: string
     join_date?: Date | string
     contract_end: Date | string
+    login?: boolean
   }
 
   export type UserUncheckedCreateWithoutAbsenceInput = {
@@ -5188,6 +5253,7 @@ export namespace Prisma {
     status: string
     join_date?: Date | string
     contract_end: Date | string
+    login?: boolean
   }
 
   export type UserCreateOrConnectWithoutAbsenceInput = {
@@ -5217,6 +5283,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     contract_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    login?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateWithoutAbsenceInput = {
@@ -5230,6 +5297,7 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     contract_end?: DateTimeFieldUpdateOperationsInput | Date | string
+    login?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AbsenceCreateManyUserInput = {

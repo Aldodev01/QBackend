@@ -14,7 +14,6 @@ const AuthMiddleware = {
     }
   
     const token = authHeader.split(' ')[1];
-  
     try {
       const payload = jwt.verify(token, JWT_SECRET);
       req.userId = payload.userId;
@@ -22,15 +21,18 @@ const AuthMiddleware = {
       next();
     } catch (error) {
       res.status(401).json({ error: 'Invalid or expired token' });
+      next(error);
     }
   },
   requireSigner: (req, res, next) => {
     if (!req.userStatus) {
-      return res.status(401).json({ error: 'User status is required' });
+      res.status(401).json({ error: 'User status is required' });
+      return next(error);
     }
   
     if (req.userStatus !== 'signer') {
-      return res.status(403).json({ code: 403, error: 'Access denied. Only signers can perform this action.' });
+      res.status(403).json({ code: 403, error: 'Access denied. Only signers can perform this action.' });
+      return next(error);
     }
   
     next();
