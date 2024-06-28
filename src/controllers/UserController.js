@@ -9,7 +9,7 @@ const userController = {
     createUser: async (req, res, next) => {
     const { username, email, password, phone, employee_no, profile_pic, status } = req.body;
     if(!username || !email || !password || !phone || !employee_no || !profile_pic || !status) {
-      res.status(400).json({code: 400, message: `Please update the account all of the fields`});
+      res.status(200).json({code: 400, message: `Please update the account all of the fields`});
       return next()
     }
     try {
@@ -31,7 +31,7 @@ const userController = {
         res.status(201).json({code: 201, data: user, message: `Successfully to create account ${username}`});
         return next()
       } else {
-        res.status(400).json({code: 400, data: user, message: `Somethings happened try again laterd`});
+        res.status(200).json({code: 400, data: user, message: `Somethings happened try again laterd`});
         return next()
       }
     } catch (error) {
@@ -51,7 +51,7 @@ const userController = {
         res.status(200).json({code: 404, data: users, message: `Successfully to get all of account but no one account to find`});
         return next()
       } else {
-        res.status(400).json({code: 400, data: users, message: `Somethings happened try again later`});
+        res.status(200).json({code: 400, data: users, message: `Somethings happened try again later`});
         return next()
       }
     } catch (error) {
@@ -75,7 +75,7 @@ const userController = {
         res.status(200).json({code: 200, data: user, message: `Successfully to get the account ${user.username}`});
         return next()
       } else {
-        res.status(400).json({code: 400, data: user, message: `Somethings happened try again later`});
+        res.status(200).json({code: 400, data: user, message: `Somethings happened try again later`});
         return next()
       }
     } catch (error) {
@@ -83,6 +83,8 @@ const userController = {
       return next(error)
     }
   },
+
+
   
  updateUser: async (req, res, next) => {
     const { id } = req.params;
@@ -92,7 +94,7 @@ const userController = {
       return next()
     }
     if(!username || !email || !phone || !status) {
-      res.status(400).json({code: 400, message: `Please update the account all of the fields ${username}, ${email}, ${phone}, ${status} is Missing`});
+      res.status(200).json({code: 400, message: `Please update the account all of the fields ${username}, ${email}, ${phone}, ${status} is Missing`});
       return next()
     }
     try {
@@ -135,13 +137,14 @@ const userController = {
       return next()
     }
     if (!req.file) {
-      res.status(400).json({ error: 'No file uploaded' })
+      res.status(200).json({ error: 'No file uploaded' })
       return next()
     }
     try {
+      console.log(process.env.CLOUDINARY_API_NAME, process.env.CLOUDINARY_API_KEY, process.env.CLOUDINARY_API_SECRET, "sdd");
       cloudinary.uploader.upload_stream({ folder: 'profile_pics' }, async (error, result) => {
         if (error) {
-          res.status(500).json({ error: 'Failed to upload image' });
+          res.status(500).json({ error: 'Failed to upload image', message: error });
           return next()
         }
         const user = await prisma.user.update({
@@ -160,10 +163,10 @@ const userController = {
     try {
       const { email, password } = req.body;
       if (!email) {
-        res.status(400).json({ error: 'Please Input the email' });
+        res.status(200).json({ code: 404, error: 'Please Input the email' });
         return next();
       } else if (!password) {
-        res.status(400).json({ error: 'Please Input the password' });
+        res.status(200).json({ code: 404, error: 'Please Input the password' });
         return next();
       }
       
@@ -171,7 +174,7 @@ const userController = {
         where: { email },
       });
       if (!user) {
-        res.status(404).json({ error: 'User not found' });
+        res.status(200).json({ code: 404, error: 'User not found' });
         return next();
       }
       await prisma.user.update({
@@ -180,7 +183,7 @@ const userController = {
       });
       const isPasswordValid = await bcrypt.compare(password, user.password);
       if (!isPasswordValid) {
-        res.status(401).json({ error: 'Invalid password' });
+        res.status(200).json({ code: 404, error: 'Invalid password' });
         return next();
       }
       const token = jwt.sign(
@@ -232,7 +235,7 @@ const userController = {
     const { id } = req.params; // Mengambil userId dari req.params
   
     if (!id) {
-      res.status(400).json({ error: 'User ID is required' });
+      res.status(200).json({ error: 'User ID is required' });
       return next();
     }
     try {

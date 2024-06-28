@@ -6,17 +6,17 @@ const PresentController = {
     const { latitude, longitude, time, userId } = req.body;
 
     if (!latitude || !longitude || !time) {
-      return res.status(400).json({ error: 'All fields are required' });
+      return res.status(200).json({ code: 400, error: 'All fields are required' });
     }
 
     if (!userId) {
-      return res.status(401).json({ error: 'Unauthorized: User ID is required' });
+      return res.status(200).json({ code: 404, error: 'Unauthorized: User ID is required' });
     }
     const user = await prisma.user.findUnique({
       where: { id: userId }
     });
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(200).json({  code: 404, error: 'User not found' });
     }
 
     try {
@@ -32,7 +32,7 @@ const PresentController = {
       });
 
       if (absences.length > 0) {
-        return res.status(200).json({ error: 'Already checked in today' });
+        return res.status(200).json({ code: 400, error: 'Already checked in today' });
       }
 
       const absence = await prisma.absence.create({
@@ -56,7 +56,7 @@ const PresentController = {
     const { latitude, longitude, time, userId } = req.body;
 
     if (!userId) {
-      return res.status(401).json({ error: 'Unauthorized: User ID is required' });
+      return res.status(200).json({ error: 'Unauthorized: User ID is required' });
     }
 
     try {
@@ -72,7 +72,7 @@ const PresentController = {
       });
 
       if (!absence) {
-        return res.status(400).json({ error: 'You have not checked in today' });
+        return res.status(200).json({ error: 'You have not checked in today' });
       }
 
       const updatedAbsence = await prisma.absence.update({
