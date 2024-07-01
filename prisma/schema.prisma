@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output = "../generated/client"
 }
 
 datasource db {
@@ -39,6 +38,7 @@ model Absence {
   latitude    String
   longitude   String
   status      String
+  late        Boolean  @default(false)
 }
 
 model Location {

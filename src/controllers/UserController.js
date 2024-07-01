@@ -67,7 +67,7 @@ const userController = {
       return next()
     }
     try {
-      const user = await prisma.user.findUnique({ where: { id } });
+      const user = await prisma.user.findUnique({ where: { id }, include: { Absence: true} });
       if (!user) {
         res.status(404).json({ error: 'User not found' });
         return next()

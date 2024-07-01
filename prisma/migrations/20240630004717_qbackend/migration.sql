@@ -25,6 +25,7 @@ CREATE TABLE "Absence" (
     "latitude" TEXT NOT NULL,
     "longitude" TEXT NOT NULL,
     "status" TEXT NOT NULL,
+    "late" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "Absence_pkey" PRIMARY KEY ("id")
 );

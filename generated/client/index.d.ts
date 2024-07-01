@@ -2119,6 +2119,7 @@ export namespace Prisma {
     latitude: string | null
     longitude: string | null
     status: string | null
+    late: boolean | null
   }
 
   export type AbsenceMaxAggregateOutputType = {
@@ -2130,6 +2131,7 @@ export namespace Prisma {
     latitude: string | null
     longitude: string | null
     status: string | null
+    late: boolean | null
   }
 
   export type AbsenceCountAggregateOutputType = {
@@ -2141,6 +2143,7 @@ export namespace Prisma {
     latitude: number
     longitude: number
     status: number
+    late: number
     _all: number
   }
 
@@ -2154,6 +2157,7 @@ export namespace Prisma {
     latitude?: true
     longitude?: true
     status?: true
+    late?: true
   }
 
   export type AbsenceMaxAggregateInputType = {
@@ -2165,6 +2169,7 @@ export namespace Prisma {
     latitude?: true
     longitude?: true
     status?: true
+    late?: true
   }
 
   export type AbsenceCountAggregateInputType = {
@@ -2176,6 +2181,7 @@ export namespace Prisma {
     latitude?: true
     longitude?: true
     status?: true
+    late?: true
     _all?: true
   }
 
@@ -2260,6 +2266,7 @@ export namespace Prisma {
     latitude: string
     longitude: string
     status: string
+    late: boolean
     _count: AbsenceCountAggregateOutputType | null
     _min: AbsenceMinAggregateOutputType | null
     _max: AbsenceMaxAggregateOutputType | null
@@ -2288,6 +2295,7 @@ export namespace Prisma {
     latitude?: boolean
     longitude?: boolean
     status?: boolean
+    late?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["absence"]>
 
@@ -2300,6 +2308,7 @@ export namespace Prisma {
     latitude?: boolean
     longitude?: boolean
     status?: boolean
+    late?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["absence"]>
 
@@ -2312,6 +2321,7 @@ export namespace Prisma {
     latitude?: boolean
     longitude?: boolean
     status?: boolean
+    late?: boolean
   }
 
   export type AbsenceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2335,6 +2345,7 @@ export namespace Prisma {
       latitude: string
       longitude: string
       status: string
+      late: boolean
     }, ExtArgs["result"]["absence"]>
     composites: {}
   }
@@ -2737,6 +2748,7 @@ export namespace Prisma {
     readonly latitude: FieldRef<"Absence", 'String'>
     readonly longitude: FieldRef<"Absence", 'String'>
     readonly status: FieldRef<"Absence", 'String'>
+    readonly late: FieldRef<"Absence", 'Boolean'>
   }
     
 
@@ -4020,7 +4032,8 @@ export namespace Prisma {
     time_out: 'time_out',
     latitude: 'latitude',
     longitude: 'longitude',
-    status: 'status'
+    status: 'status',
+    late: 'late'
   };
 
   export type AbsenceScalarFieldEnum = (typeof AbsenceScalarFieldEnum)[keyof typeof AbsenceScalarFieldEnum]
@@ -4229,6 +4242,7 @@ export namespace Prisma {
     latitude?: StringFilter<"Absence"> | string
     longitude?: StringFilter<"Absence"> | string
     status?: StringFilter<"Absence"> | string
+    late?: BoolFilter<"Absence"> | boolean
     user?: XOR<UserRelationFilter, UserWhereInput>
   }
 
@@ -4241,6 +4255,7 @@ export namespace Prisma {
     latitude?: SortOrder
     longitude?: SortOrder
     status?: SortOrder
+    late?: SortOrder
     user?: UserOrderByWithRelationInput
   }
 
@@ -4256,6 +4271,7 @@ export namespace Prisma {
     latitude?: StringFilter<"Absence"> | string
     longitude?: StringFilter<"Absence"> | string
     status?: StringFilter<"Absence"> | string
+    late?: BoolFilter<"Absence"> | boolean
     user?: XOR<UserRelationFilter, UserWhereInput>
   }, "id">
 
@@ -4268,6 +4284,7 @@ export namespace Prisma {
     latitude?: SortOrder
     longitude?: SortOrder
     status?: SortOrder
+    late?: SortOrder
     _count?: AbsenceCountOrderByAggregateInput
     _max?: AbsenceMaxOrderByAggregateInput
     _min?: AbsenceMinOrderByAggregateInput
@@ -4285,6 +4302,7 @@ export namespace Prisma {
     latitude?: StringWithAggregatesFilter<"Absence"> | string
     longitude?: StringWithAggregatesFilter<"Absence"> | string
     status?: StringWithAggregatesFilter<"Absence"> | string
+    late?: BoolWithAggregatesFilter<"Absence"> | boolean
   }
 
   export type LocationWhereInput = {
@@ -4451,6 +4469,7 @@ export namespace Prisma {
     latitude: string
     longitude: string
     status: string
+    late?: boolean
     user: UserCreateNestedOneWithoutAbsenceInput
   }
 
@@ -4463,6 +4482,7 @@ export namespace Prisma {
     latitude: string
     longitude: string
     status: string
+    late?: boolean
   }
 
   export type AbsenceUpdateInput = {
@@ -4473,6 +4493,7 @@ export namespace Prisma {
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    late?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneRequiredWithoutAbsenceNestedInput
   }
 
@@ -4485,6 +4506,7 @@ export namespace Prisma {
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    late?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AbsenceCreateManyInput = {
@@ -4496,6 +4518,7 @@ export namespace Prisma {
     latitude: string
     longitude: string
     status: string
+    late?: boolean
   }
 
   export type AbsenceUpdateManyMutationInput = {
@@ -4506,6 +4529,7 @@ export namespace Prisma {
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    late?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AbsenceUncheckedUpdateManyInput = {
@@ -4517,6 +4541,7 @@ export namespace Prisma {
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    late?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type LocationCreateInput = {
@@ -4761,6 +4786,7 @@ export namespace Prisma {
     latitude?: SortOrder
     longitude?: SortOrder
     status?: SortOrder
+    late?: SortOrder
   }
 
   export type AbsenceMaxOrderByAggregateInput = {
@@ -4772,6 +4798,7 @@ export namespace Prisma {
     latitude?: SortOrder
     longitude?: SortOrder
     status?: SortOrder
+    late?: SortOrder
   }
 
   export type AbsenceMinOrderByAggregateInput = {
@@ -4783,6 +4810,7 @@ export namespace Prisma {
     latitude?: SortOrder
     longitude?: SortOrder
     status?: SortOrder
+    late?: SortOrder
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -5124,6 +5152,7 @@ export namespace Prisma {
     latitude: string
     longitude: string
     status: string
+    late?: boolean
   }
 
   export type AbsenceUncheckedCreateWithoutUserInput = {
@@ -5134,6 +5163,7 @@ export namespace Prisma {
     latitude: string
     longitude: string
     status: string
+    late?: boolean
   }
 
   export type AbsenceCreateOrConnectWithoutUserInput = {
@@ -5174,6 +5204,7 @@ export namespace Prisma {
     latitude?: StringFilter<"Absence"> | string
     longitude?: StringFilter<"Absence"> | string
     status?: StringFilter<"Absence"> | string
+    late?: BoolFilter<"Absence"> | boolean
   }
 
   export type UserCreateWithoutAbsenceInput = {
@@ -5256,6 +5287,7 @@ export namespace Prisma {
     latitude: string
     longitude: string
     status: string
+    late?: boolean
   }
 
   export type AbsenceUpdateWithoutUserInput = {
@@ -5266,6 +5298,7 @@ export namespace Prisma {
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    late?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AbsenceUncheckedUpdateWithoutUserInput = {
@@ -5276,6 +5309,7 @@ export namespace Prisma {
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    late?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AbsenceUncheckedUpdateManyWithoutUserInput = {
@@ -5286,6 +5320,7 @@ export namespace Prisma {
     latitude?: StringFieldUpdateOperationsInput | string
     longitude?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    late?: BoolFieldUpdateOperationsInput | boolean
   }
 
 

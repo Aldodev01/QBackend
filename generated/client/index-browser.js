@@ -141,7 +141,8 @@ exports.Prisma.AbsenceScalarFieldEnum = {
   time_out: 'time_out',
   latitude: 'latitude',
   longitude: 'longitude',
-  status: 'status'
+  status: 'status',
+  late: 'late'
 };
 
 exports.Prisma.LocationScalarFieldEnum = {
